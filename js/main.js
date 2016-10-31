@@ -7,45 +7,81 @@ function validateForm(){
 	var indice = document.getElementsByTagName('select')[0].selectedIndex;
 
 	//Todos los campos son obligatorios, excepto los dos últimos.
-	function camposRellenados(){
+	function camposRellenadosNombre(){
 		if(nombre==null || nombre.length==0 || /^\s+$/.test(nombre)){
 			//alert("ERROR: El campo nombre no debe ir vacío.");
 			var containerAlertaNombre = document.getElementsByClassName("name-container")[0];
 			var contenedorErrorNombre = document.createElement("span");
-			var nodoAlerta = document.createTextNode("ERROR: El campo nombre no debe ir vacío.");
-			contenedorErrorNombre.appendChild(nodoAlerta);
+			var nodoAlertaNombre = document.createTextNode("Debe ingresar su nombre.");
+			contenedorErrorNombre.appendChild(nodoAlertaNombre);
+			contenedorErrorNombre.setAttribute("id", "idNombre");
 			containerAlertaNombre.appendChild(contenedorErrorNombre);
 			return false;
+		} else{
+			var spanNombre = document.getElementById('idNombre');
+			spanNombre.style.display='none';
+			return true;
 		}
+	}camposRellenadosNombre();
 
-		else if(apellido==null || apellido.length==0 || /^\s+$/.test(apellido)){
+	function camposRellenadosApellido(){
+		if(apellido==null || apellido.length==0 || /^\s+$/.test(apellido)){
 			//alert("ERROR: El campo apellido no debe ir vacío.");
-			var containerAlertaNombre = document.getElementsByClassName("lastname-container")[0];
-			var contenedorErrorNombre = document.createElement("span");
-			var nodoAlerta = document.createTextNode("ERROR: El campo apellido no debe ir vacío.");
-			contenedorErrorNombre.appendChild(nodoAlerta);
-			containerAlertaNombre.appendChild(contenedorErrorNombre);
+			var containerAlertaApellido = document.getElementsByClassName("lastname-container")[0];
+			var contenedorErrorApellido = document.createElement("span");
+			var nodoAlertaApellido = document.createTextNode("Debe ingresar su apellido.");
+			contenedorErrorApellido.appendChild(nodoAlertaApellido);
+			contenedorErrorApellido.setAttribute("id", "idApellido");
+			containerAlertaApellido.appendChild(contenedorErrorApellido);
 			return false;
+		} else{
+			var spanApellido = document.getElementById('idApellido');
+			spanApellido.style.display='none';
+			return true;
 		}
-
-		else if(!(/\S+@\S+\.\S+/.test(correo))){ //Validar que el campo email tenga un formato válido. Ej: name@domain.com.
-			alert("ERROR: Debe escribir un correo válido valido. Ejemplo: name@domain.com");
+	}camposRellenadosApellido();
+		
+	function correoValido(){
+		if(!(/\S+@\S+\.\S+/.test(correo))){ //Validar que el campo email tenga un formato válido. Ej: name@domain.com.
+			//alert("Verifique su e-mail.");
+			var containerAlertaCorreo = document.getElementsByClassName("email-container")[0];
+			var contenedorErrorCorreo = document.createElement("span");
+			var nodoAlertaCorreo = document.createTextNode("Verifique que su email tenga un formato válido.");
+			contenedorErrorCorreo.appendChild(nodoAlertaCorreo);
+			contenedorErrorCorreo.setAttribute("id", "idCorreo");
+			containerAlertaCorreo.appendChild(contenedorErrorCorreo);
 			return false;
+		} else{
+			var spanCorreo = document.getElementById('idCorreo');
+			spanCorreo.style.display='none';
+			return true;
 		}
+	}correoValido();
 
-		else if(contrasena==null || contrasena.length==0 || /^\s+$/.test(contrasena)){
-			alert("ERROR: El campo contraseña no debe ir vacío.");
-			return false;
-		}
-
-		else if(indice == null || indice == 0) { //El valor seleccionado de bicis, debe ser una de las opciones presentadas.
-			alert("ERROR: Debes seleccionar un elemento de la lista.");
+	function camposRellenadosBici(){
+		if(indice == null || indice == 0) { //El valor seleccionado de bicis, debe ser una de las opciones presentadas.
+			//alert("Debe seleccionar al menos un tipo de bici.");
+			var containerAlertaBici = document.getElementsByClassName("input-box")[4];
+			var contenedorErrorBici = document.createElement("span");
+			var nodoAlertaBici = document.createTextNode("Debe seleccionar al menos un tipo de bici.");
+			contenedorErrorBici.appendChild(nodoAlertaBici);
+			contenedorErrorBici.setAttribute("id", "idBici");
+			containerAlertaBici.appendChild(contenedorErrorBici);
 	  		return false;
+		} else{
+			var spanBici = document.getElementById('idBici');
+			spanBici.style.display='none';
+			return true;
+		}
+	}camposRellenadosBici();
+
+		/*if(contrasena==null || contrasena.length==0 || /^\s+$/.test(contrasena)){
+			alert("El campo contraseña no debe ir vacío.");
+			return false;
 		}
 		else{
 			return true;
-		}
- 	}camposRellenados();
+		}*/
 
  	//Los campos nombre y apellido sólo deben permitir caracteres de la A-Z
  	function validaSoloTextoNombre(nombre){
@@ -53,7 +89,7 @@ function validateForm(){
   		if(!nombre.search(patronNombre)){
   			return true;
   		} else{
-  			alert("ERROR: Solo se permitir caracteres de la a-z");
+  			alert("Solo se permitir caracteres de la a-z");
 
   		    return false;
   		}
@@ -64,7 +100,7 @@ function validateForm(){
   		if(!apellido.search(patronApellido)){
   			return true;
   		} else{
-  			alert("ERROR: Solo se permitir caracteres de la a-z");
+  			alert("Solo se permitir caracteres de la a-z");
   		    return false;
   		}
 	}validaSoloTextoApellido(apellido);
@@ -109,9 +145,17 @@ function validateForm(){
 	//El campo password debe tener al menos 6 caracteres.
 	function seisCaracteres(contrasena){
 		if (contrasena.length < 6){
-			alert("ERROR: La contraseña debe tener al menos 6 caracteres.")
+			//alert("La contraseña debe tener al menos 6 caracteres.")
+			var containerAlertaContrasena = document.getElementsByClassName("input-box")[3];
+			var contenedorErrorContrasena = document.createElement("span");
+			var nodoAlertaContrasena = document.createTextNode("La contraseña debe tener al menos 6 caracteres.");
+			contenedorErrorContrasena.appendChild(nodoAlertaContrasena);
+			contenedorErrorContrasena.setAttribute("id", "idContrasena");
+			containerAlertaContrasena.appendChild(contenedorErrorContrasena);
 			return false;
     	} else{
+    		var spanContrasena = document.getElementById('idContrasena');
+			spanContrasena.style.display='none';
     		return true;
     	}
 	}seisCaracteres(contrasena);
@@ -119,15 +163,15 @@ function validateForm(){
 	//El campo password no puede ser igual a "password" ó "123456" ó "098754"
 	function noPermitido(contrasena){
 		if(contrasena=="password"){
-			alert("ERROR: El campo contrasena no puede ser igual a 'password' o '123456' o '098754'");
+			alert("El campo contrasena no puede ser igual a 'password' o '123456' o '098754'");
 			return false;
 		} 
 		else if(contrasena==123456){
-			alert("ERROR: El campo contrasena no puede ser igual a 'password' o '123456' o '098754'");
+			alert("El campo contrasena no puede ser igual a 'password' o '123456' o '098754'");
 			return false;
 		}
 		else if(contrasena==098754){
-			alert("ERROR: El campo contrasena no puede ser igual a 'password' o '123456' o '098754'");
+			alert("El campo contrasena no puede ser igual a 'password' o '123456' o '098754'");
 			return false;
 		}
 		else{
